@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorithm Lab - Demo & Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main>
+        <div class="config-panel">
+            <section id="select_algorithm">
+
+                <h3><i class="fas fa-microchip"></i> Thuật toán</h3>
+                <label class="label-tag">Chọn giải thuật</label>
+                
+                <!-- Lựa chọn thuật toán -->
+                <select id="algo_select">
+                    <option value="binary_search">Binary Search</option>
+                    <option value="quick_sort">Quick Sort</option>
+                    <option value="dijkstra">Dijkstra's Algorithm</option>
+                    <option value="bfs">Breadth-First Search (BFS)</option>
+                </select>
+
+                <!-- Giới thiệu cách chạy và cách nhập input/testcase -->
+                <div id="introduce" style="margin-top: 20px;">
+                    <label class="label-tag" style="color: red;">Hướng dẫn nhập</label>
+                    <div class="guide-box">
+                        <p id="guide_text">Vui lòng nhập mảng (cách nhau bởi dấu phẩy) và số cần tìm ở ô bên cạnh.</p>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+        <div class="workspace-panel">
+            <section>
+                <div class="code-header">
+                    <h3><i class="fas fa-terminal"></i> Input Data</h3>
+                    <button class="btn-run">RUN TEST <i class="fas fa-play"></i></button>
+                </div>
+                <textarea id="input_data" rows="6" placeholder="Ví dụ: [1, 3, 5, 7, 9], target = 7"></textarea>
+            </section>
+
+            <section>
+                <h3><i class="fas fa-poll"></i> Results</h3>
+                
+                <label class="label-tag">Console Output</label>
+                <div class="output-box" id="output_display">
+                    > Processing...
+                    > Algorithm: Binary Search
+                    > Result: Found at index 3
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <label class="label-tag">Explanation (Step-by-step)</label>
+                    <div class="explanation-box">
+                        <p>1. Khởi tạo <code>left = 0</code>, <code>right = n-1</code>.</p>
+                        <p>2. Tìm <code>mid = (left + right) / 2</code>.</p>
+                        <p>3. So sánh <code>arr[mid]</code> với giá trị cần tìm để thu hẹp phạm vi.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+:root {
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --primary-color: #38bdf8;
+  --accent-color: #818cf8;
+  --text-color: #f1f5f9;
+  --border-color: #334155;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+main {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 20px;
+}
+
+section {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  margin-top: 0;
+  color: var(--primary-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+/* Group Select Algorithm */
+.config-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+select,
+textarea {
+  width: 100%;
+  background: #0f172a;
+  border: 1px solid var(--border-color);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  font-family: "Courier New", monospace;
+  box-sizing: border-box;
+}
+
+.guide-box {
+  background: rgba(56, 189, 248, 0.1);
+  border-left: 4px solid var(--primary-color);
+  padding: 10px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Execution Area */
+.workspace-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.btn-run {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--accent-color)
+  );
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+.btn-run:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+}
+
+.output-box {
+  background: #000;
+  color: #10b981; /* Green terminal color */
+  padding: 15px;
+  border-radius: 8px;
+  min-height: 100px;
+  white-space: pre-wrap;
+  border: 1px solid #059669;
+}
+
+.explanation-box {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 8px;
+  line-height: 1.6;
+  color: #cbd5e1;
+}
+
+.label-tag {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  margin-bottom: 5px;
+  display: block;
+}
