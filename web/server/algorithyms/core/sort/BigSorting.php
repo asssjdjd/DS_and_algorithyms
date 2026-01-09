@@ -29,4 +29,14 @@ function bigSorting($unsorted)
     return $unsorted;
 }
 
+// function test() {
+//     $a = ['1','300','200','3'];
+
+//     $result = bigSorting($a);
+
+//     foreach($result as $val) {
+//         print($val. " ");
+//     }
+// }
+
 ?>

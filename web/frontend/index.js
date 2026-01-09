@@ -1,1 +1,0 @@
-// Xử lý và gửi lên server tại đây.
