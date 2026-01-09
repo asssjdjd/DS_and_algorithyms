@@ -1,0 +1,34 @@
+<?php
+function quickSort($arr)
+{
+   $pivot = $arr[0];
+   $left = [];
+   $right = [];
+   $equal = [];
+   
+   $length = count($arr);
+   for($i = 0; $i < $length; $i++) {
+    if($arr[$i] > $pivot) {
+        array_push($right,$arr[$i]);
+    }else if($arr[$i] < $pivot) {
+        array_push($left, $arr[$i]);
+    }else {
+        array_push($equal,$arr[$i]);
+    }
+   }
+
+   $result = [];
+   $result = array_merge($result,$left);
+   $result = array_merge($result,$equal);
+   $result = array_merge($result,$right);
+
+   return $result;
+}
+
+$a = [3,2,4,5,7];
+
+var_dump(quickSort($a));
+
+// 2 3 4 5 7
+
+?>
