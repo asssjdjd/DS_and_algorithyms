@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../impl/get_introduce_data/BigSorting.php';
+require_once __DIR__ . '/../impl/get_introduce_data/CountingSort.php';
 
 class GetIntroduceDataFactory
 {
@@ -8,6 +9,8 @@ class GetIntroduceDataFactory
         switch ($id) {
             case 'big_sorting':
                 return new BigSorting();
+            case 'counting_sort':
+                return new CountingSort();
             default:
                 return null;
         }

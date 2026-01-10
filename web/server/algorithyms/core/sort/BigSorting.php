@@ -21,7 +21,6 @@ function conditionSort($a, $b): int
         else return 0;
     }
 }
-
 function bigSorting($unsorted)
 {
     // Write your code here

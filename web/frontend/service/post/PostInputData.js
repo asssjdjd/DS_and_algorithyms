@@ -1,11 +1,11 @@
 // const BASE_URL = "http://localhost:8000/server";
 
-export async function postInputData(BASE_URL) {
+export async function postInputData(BASE_URL,algo_id,data) {
     
     // payload : dữ liệu từ người dùng gửi đi
     const payload = {
-        algorithym_id : "big_sorting",
-        input_value  : ["1", "300" , "200", "3"]
+        'algorithym_id' :algo_id,
+        'data' : data,
     };
 
     try {

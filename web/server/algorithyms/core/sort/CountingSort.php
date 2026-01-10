@@ -1,42 +1,38 @@
 <?php 
 
-$explant_data = [];
-function countingSort($arr) {
-    $max = max($arr);
-
-    // initial frequence array
-    $fre = [];
-    for($i = 0; $i <= $max; $i++) {
-        $fre[$i] = 0;
+function countingSort($arr, &$explaint) {
+    if (empty($arr)) {
+        return [[], []];
     }
 
-    // update frequence value 
+    $max = max($arr);
+
+    // Khởi tạo mảng tần suất
+    $fre = array_fill(0, $max + 1, 0);
+
+    // Cập nhật tần suất
     foreach($arr as $value) {
-        $fre[$value] += 1;
+        $fre[$value]++;
     }
 
     $result = [];
-    global $explant_data;
+    // Tái tạo mảng đã sắp xếp
     for($i = 0; $i <= $max; $i++) {
-        array_push($explant_data, $fre[$i]);
-        if($fre[$i] != 0) {
+        if($fre[$i] > 0) {
             for($j = 0; $j < $fre[$i]; $j++) {
-               array_push($result,$i);
+               $result[] = $i; // Cú pháp ngắn gọn hơn array_push
             }
         }
     }
-    return $result;
-}
 
-
-function test() {
-    $a = [1,3,4,5,6,1,5,3,6];
-    countingSort($a);
-
-    global $explant_data;
-    foreach($explant_data as $value) {
-        print($value);
+    $res = "Bảng tần suất (Value: Count): \n";
+    for($i = 0; $i <= $max; $i++) {
+    
+        $res .= "[{$i}: {$fre[$i]}]\n"; 
     }
-}
+    
+    
+    $explaint = [$res];
 
-// test();
+    return [$result, $explaint];
+}
