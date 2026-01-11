@@ -2,8 +2,10 @@ import { AlgorithmGroup,AlgorithmId } from "./AlgorithmEnums.js";
 import {validateBigSorting} from "./impl/ValidateBigSorting.js"
 import {validateCountingSort} from "./impl/ValidateCountingSort.js"
 import { validateInsertionSort1 } from "./impl/ValidateInsertionSort1.js";
+import { validateInsertionSort2 } from "./impl/ValidateInsertionSort2.js";
 
-// validate input dữ liệu
+
+// validate input dữ liệu và trả về các trường
 export async function validate(data) {
     // kiểm tra có chứa ký tự hoa ký tự thường không.
     let lines = data.trim().split(/\r?\n/);
@@ -40,6 +42,7 @@ export async function validate(data) {
     return validationResults;
 };
 
+// validate thực sự
 export async function validateDetail(algorithm,data) {
     let validate;
     // triển khai tính đa hình trong js
@@ -49,6 +52,8 @@ export async function validateDetail(algorithm,data) {
         validate = await validateCountingSort(data);
     }else if(algorithm === AlgorithmId.INSERTION_SORT_1) {
         validate = await validateInsertionSort1(data);
+    }else if(algorithm === AlgorithmId.INSERTION_SORT_2) {
+        validate = await validateInsertionSort2(data);
     }
     return validate;
 }

@@ -1,8 +1,6 @@
 <?php 
 
-$explant_data = [];
-
-function insertionSort1($n, &$arr)
+function insertion_Sort1($n, &$arr)
 {
     for ($i = $n - 1; $i >= 0; $i--) {
         $tmp = $arr[$i];
@@ -15,26 +13,29 @@ function insertionSort1($n, &$arr)
     }
 }
 
-function storeArray($n, $arr): void
-{
-    // for ($i = 0; $i < $n; $i++) {
-    //     print($arr[$i] . " ");
-    // }
-    // print("\n");
+// function storeArray($arr, &$explaint)
+// {
+//     // Chuyển mảng thành chuỗi, ví dụ: [1, 2, 3] thành "1 2 3"
+//     $arrayString = implode(" ", $arr);
+    
+//     // Thêm chuỗi vào mảng giải thích
+//     $explaint[] = $arrayString; 
+// }
 
-    global $explant_data;
-    array_push($explant_data,$arr);
-}
-
-function insertionSort2($n, $arr)
+function insertionSort2($n, $arr, &$explaint)
 {
+     if (empty($arr)) {
+        return [[], []];
+    }
+    $res = "Danh sách của mảng đã dịch chuyển \n";
+    $explaint[] = $res;
+    storeArray($arr,$explaint);
     // loop n - 1 cycle
     for ($i = 1; $i < $n; $i++) {
-        insertionSort1($i + 1, $arr);
-        storeArray($n, $arr);
+        insertion_Sort1($i + 1, $arr);
+        storeArray($arr, $explaint);
     }
-    global $explant_data;
-    return $explant_data;
+    return [$arr, $explaint];
 }
 
 // $n = 7;
