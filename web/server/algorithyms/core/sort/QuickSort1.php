@@ -1,5 +1,5 @@
 <?php
-function quickSort($arr)
+function quickSort1($arr)
 {
     $pivot = $arr[0];
     $left = [];

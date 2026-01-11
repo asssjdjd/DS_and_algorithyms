@@ -137,8 +137,8 @@ function setupRunButton() {
             // console.log(outputAndExplaint);
             // console.log()
         }else {
-            const message = validateDetails[0].message;
-            console.log(message);
+            const errorLine = validateDetails.find(item => item.isValid === false);
+           const message = errorLine ? errorLine.message : "Có lỗi xảy ra nhưng không xác định được dòng.";
             // Hiển thị lỗi
             messageInput.innerText = message;
         }

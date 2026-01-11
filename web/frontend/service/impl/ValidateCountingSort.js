@@ -18,6 +18,12 @@ export async function validateCountingSort(data) {
                 "isValid" : false,
                 "message" : "Dữ liệu chỉ gồm một mảng!"
             }
+        }else if(line.hasNegative === true) {
+            return {
+                "index" : index,
+                "isValid" : false,
+                "message" : "Thuật toán CountingSort không được có số âm!"
+            }
         }else {
             return {
                 "index"  : index,

@@ -1,13 +1,14 @@
 <?php 
 
-function handleInputCountingSortResponse ($data) {
+function handleInsertionSort1Response ($data) {
     // $data[0]: Mảng số đã sắp xếp
-    // $data[1]: Có thể là String hoặc Array (do logic countingSort trả về)
-
+    // $data[1]: Có thể là String hoặc Array 
     $explaintText = "
-        Thuật toán chỉ áp dụng với số dương
-        Thuật toán được sắp xếp dựa trên tần suất.
-        Nó chọn ra từ lớn nhất về đếm tần suất từ 0 -> max.
+        VÀ THUẬT TOÁN CHỈ DUYỆT 1 LẦN. ĐỂ SẮP XẾP SỐ CUỐI.
+        Thuật toán được sắp xếp dần dần.
+        Bắt đầu từ ký tự cuối cung nếu tồn tại số trước lớn hơn thì đổi chỗ.
+        Và dịch chuyển xuống các ký tự dưới
+        Nếu tìm được số nhỏ hơn thì ghi nhập vào vị trí đó
     ";
 
     // Xử lý chuẩn hóa data[1]

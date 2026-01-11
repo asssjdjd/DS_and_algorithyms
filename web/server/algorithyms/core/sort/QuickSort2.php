@@ -7,7 +7,7 @@ function storeArray($n, $arr) {
    array_push($explant_data, $arr);
 }
 
-function quickSort($arr)
+function quickSort2($arr)
 {
     if(count($arr) <= 1) return $arr;
     $pivot = $arr[0];
