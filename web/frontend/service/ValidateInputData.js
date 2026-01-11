@@ -5,6 +5,8 @@ import { validateInsertionSort1 } from "./impl/ValidateInsertionSort1.js";
 import { validateInsertionSort2 } from "./impl/ValidateInsertionSort2.js";
 import { validateQuickSort1 } from "./impl/ValidateQuickSort1.js";
 import { validateQuickSort2 } from "./impl/ValidateQuickSort2.js";
+import { validateSearchUsingDictionary } from "./impl/ValidateSearchUsingDictionary.js";
+import { validateSearchMissingNumber } from "./impl/ValidateSearchMissingNumber.js";
 
 
 // validate input dữ liệu và trả về các trường
@@ -61,6 +63,12 @@ export async function validateDetail(algorithm,data) {
         validate = await validateQuickSort1(data);
     }else if(algorithm === AlgorithmId.QUICK_SORT_2) {
         validate = await validateQuickSort2(data);
+    }else if(algorithm == AlgorithmId.SEARCH_USING_DICTIONARY) {
+        validate = await validateSearchUsingDictionary(data);
+    }else if(algorithm == AlgorithmId.SEARCH_MISSING_NUMBER) {
+        validate = await validateSearchMissingNumber(data);
+    }else {
+        // mở rộng thêm các thuật toán nếu cần.
     }
     return validate;
 }

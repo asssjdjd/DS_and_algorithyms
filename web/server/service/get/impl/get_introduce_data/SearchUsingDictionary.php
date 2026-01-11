@@ -2,12 +2,12 @@
 
 require_once __DIR__ . '/../../interface/GetIntroduceDataAlgorithym.php';
 
-class InsertionSort1 implements GetIntroduceDataAlgorithymInterface {
+class SearchUsingDictionary implements GetIntroduceDataAlgorithymInterface {
     public function getIntroduceData() :array
     {
         // write introduce here. 
         return [
-            'intro' => 'Thuật toán InsertionSort1.
+            'intro' => 'Thuật toán SearchUsingDictionary.
              Vui lòng nhập số lượng các số trong mảng và mảng vào ô input',
             'data' => 'Ví dụ :
                                 Dòng đầu nhập số lượng ký tự : 7. 

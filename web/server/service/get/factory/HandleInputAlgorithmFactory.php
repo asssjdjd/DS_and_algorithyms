@@ -5,6 +5,9 @@ require_once __DIR__ . '/../impl/process_algorithym/HandleInsertionSort1.php';
 require_once __DIR__ . '/../impl/process_algorithym/HandleInsertionSort2.php';
 require_once __DIR__ . '/../impl/process_algorithym/HandleQuickSort1.php';
 require_once __DIR__ . '/../impl/process_algorithym/HandleQuickSort2.php';
+require_once __DIR__ . '/../impl/process_algorithym/HandleSearchUsingDictionary.php';
+require_once __DIR__ . '/../impl/process_algorithym/HandleSearchMissingNumber.php';
+
 class HandleInputAlgorithmFactory {
     public static function create($name): ?HandleInputAlgorithmDataInterface
     {
@@ -21,6 +24,10 @@ class HandleInputAlgorithmFactory {
                 return new HandleQuickSort1();
             case 'quick_sort2' :
                  return new HandleQuickSort2();
+            case 'search_using_dictionary' :
+                return new HandleSearchUsingDictionary();
+            case 'search_missing_number' : 
+                return new HandleSearchMissingNumber();
             default:
                 return null;
         }

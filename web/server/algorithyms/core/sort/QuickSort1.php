@@ -1,6 +1,9 @@
 <?php
 function quickSort1($arr)
 {
+    // Ép kiểu số cho các phần tử
+    $arr = array_map('intval', $arr);
+    
     $pivot = $arr[0];
     $left = [];
     $right = [];
@@ -24,5 +27,7 @@ function quickSort1($arr)
 
     return $result;
 }
+
+// var_dump(quickSort1([5,4,2,6,7,8]));
 
 ?>

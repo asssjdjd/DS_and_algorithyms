@@ -205,13 +205,8 @@ async function handleInput() {
 // Hàm lọc và sắp xếp chuỗi số
 function getSortedNumberString(jsonResponse) {
     const rawNumbers = jsonResponse.data_received[0];
-    
-    // Sắp xếp các số. Lưu ý: Sử dụng BigInt nếu số quá lớn để tránh mất độ chính xác
-    const sorted = [...rawNumbers].sort((a, b) => {
-        return BigInt(a) > BigInt(b) ? 1 : -1;
-    });
-
-    return sorted.join(" "); // Nối thành chuỗi cách nhau bởi khoảng trắng
+    // Không sort lại, giữ nguyên thứ tự từ backend
+    return rawNumbers.join(" "); 
 }
 
 // Hàm tách văn bản dựa trên xuống dòng và làm sạch dữ liệu
