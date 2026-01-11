@@ -7,7 +7,8 @@ import { validateQuickSort1 } from "./impl/ValidateQuickSort1.js";
 import { validateQuickSort2 } from "./impl/ValidateQuickSort2.js";
 import { validateSearchUsingDictionary } from "./impl/ValidateSearchUsingDictionary.js";
 import { validateSearchMissingNumber } from "./impl/ValidateSearchMissingNumber.js";
-
+import { validateMinimumAbsoluteDiff } from "./impl/ValidateMinimumAbsoluteDiff.js";
+import { validateThePowerSum } from "./impl/ValidateThePowerSum.js";
 
 // validate input dữ liệu và trả về các trường
 export async function validate(data) {
@@ -67,6 +68,10 @@ export async function validateDetail(algorithm,data) {
         validate = await validateSearchUsingDictionary(data);
     }else if(algorithm == AlgorithmId.SEARCH_MISSING_NUMBER) {
         validate = await validateSearchMissingNumber(data);
+    }else if(algorithm == AlgorithmId.MINIMUM_ABSOLUTE_DIFF) {
+        validate = await validateMinimumAbsoluteDiff(data);
+    }else if(algorithm == AlgorithmId.THE_POWER_SUM) {
+        validate = await validateThePowerSum(data);
     }else {
         // mở rộng thêm các thuật toán nếu cần.
     }

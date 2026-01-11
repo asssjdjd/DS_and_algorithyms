@@ -7,6 +7,9 @@ require_once __DIR__ . '/../impl/process_algorithym/HandleQuickSort1.php';
 require_once __DIR__ . '/../impl/process_algorithym/HandleQuickSort2.php';
 require_once __DIR__ . '/../impl/process_algorithym/HandleSearchUsingDictionary.php';
 require_once __DIR__ . '/../impl/process_algorithym/HandleSearchMissingNumber.php';
+require_once __DIR__ . '/../impl/process_algorithym/HandleMiniumAbsoluteDiff.php';
+require_once __DIR__ . '/../impl/process_algorithym/HandleThePowerSum.php';
+
 
 class HandleInputAlgorithmFactory {
     public static function create($name): ?HandleInputAlgorithmDataInterface
@@ -28,6 +31,10 @@ class HandleInputAlgorithmFactory {
                 return new HandleSearchUsingDictionary();
             case 'search_missing_number' : 
                 return new HandleSearchMissingNumber();
+            case 'minimum_absolute_diff' :
+                return new HandleMiniumAbsoluteDiff();
+            case 'the_power_sum' :
+                return new HandleThePowerSum();
             default:
                 return null;
         }

@@ -8,5 +8,5 @@ function minimumAbsoluteDifference($arr)
         $dif = abs($arr[$i] - $arr[$i - 1]);
         if ($dif < $min) $min = $dif;
     }
-    return $min;
+    return [$min];
 }

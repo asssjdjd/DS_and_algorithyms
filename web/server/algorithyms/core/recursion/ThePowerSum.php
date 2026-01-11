@@ -39,18 +39,19 @@ function powerSum($X, $N)
     return $data;
 }
 
-function test()
-{
-    $a = 100;
-    $n = 2;
-    $data = powerSum($a, $n);
-    foreach($data as $val) {
-        print($val);
-        print("\n");
-    }
-}
 
-test();
+// function test()
+// {
+//     $a = 100;
+//     $n = 2;
+//     $data = powerSum($a, $n);
+//     foreach($data as $val) {
+//         print($val);
+//         print("\n");
+//     }
+// }
+
+// test();
 
 
 

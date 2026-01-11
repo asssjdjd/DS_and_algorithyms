@@ -205,15 +205,13 @@ async function handleInput() {
 // Hàm lọc và sắp xếp chuỗi số
 function getSortedNumberString(jsonResponse) {
     const rawNumbers = jsonResponse.data_received[0];
-    // Không sort lại, giữ nguyên thứ tự từ backend
     return rawNumbers.join(" "); 
 }
 
-// Hàm tách văn bản dựa trên xuống dòng và làm sạch dữ liệu
+
 function getCleanTextArray(jsonResponse) {
     const rawText = jsonResponse.data_received[1];
 
-    // Sử dụng Regex /\r?\n/ để bắt cả trường hợp \r\n hoặc chỉ \n
     return rawText
         .split(/\r?\n/) 
         .map(line => line.trim()) // Loại bỏ khoảng trắng thừa đầu và cuối mỗi dòng

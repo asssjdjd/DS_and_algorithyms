@@ -1,4 +1,6 @@
-export async function validateInsertionSort1(data) {
+export async function validateThePowerSum(data) {
+    
+    
     const validates = data.map((line,index) => {
         if(line.isValidSpecial == false) {  // validate ký tự đặc biệt 
             return {
@@ -24,22 +26,39 @@ export async function validateInsertionSort1(data) {
                 "isValid" : false,
                 "message" : "Dòng đầu chỉ được có một số!"
             }
-        }else if(index == 1){ // kiểm tra kích thước có phù hợp không
+        }else if(index == 1 && line.numberCount != 1){  // dòng thứ 2 chỉ có 1 số thôi
+            return {
+                "index" : index,
+                "isValid" : false,
+                "message" : "Dòng thứ 2 chỉ được có một số!"
+            }
+        }else if(index == 0) {
             const declaredSize = parseInt(data[0].content);
-            const actualSize = line.numberCount;
-
-            if (declaredSize !== actualSize) {
+            if(declaredSize > 1000 || declaredSize < 1) {
                 return {
-                    "index": index,
-                    "isValid": false,
-                    "message": `Kích thước mảng khác với khai báo (Khai báo: ${declaredSize}, Thực tế: ${actualSize})`
+                    "index" : index,
+                    "isValid" : false,
+                    "message" : "Thuật toán chỉ cho phép giá trị 1 <= X <= 1000 (dòng 1)"
                 }
             }
-            // Nếu khớp thì trả về hợp lệ
             return {
-                "index": index,
-                "isValid": true,
-                "data": line.content,
+                    "index" : index,
+                    "isValid" : true,
+                    "data" : line.content,
+            }
+        }else if(index == 1) {
+            const declaredSize = parseInt(data[1].content);
+            if(declaredSize > 10 || declaredSize < 2) {
+                return {
+                    "index" : index,
+                    "isValid" : false,
+                    "message" : "Thuật toán chỉ cho phép giá trị 2 <= N <= 10 (dòng 2)"
+                }
+            }
+            return {
+                    "index" : index,
+                    "isValid" : true,
+                    "data" : line.content,
             }
         }else {
             return {

@@ -7,6 +7,8 @@ require_once __DIR__ . '/../impl/get_introduce_data/QuickSort1.php';
 require_once __DIR__ . '/../impl/get_introduce_data/QuickSort2.php';
 require_once __DIR__ . '/../impl/get_introduce_data/SearchUsingDictionary.php';
 require_once __DIR__ . '/../impl/get_introduce_data/SearchMissingNumber.php';
+require_once __DIR__ . '/../impl/get_introduce_data/MinimumAbsoluteDiff.php';
+require_once __DIR__ . '/../impl/get_introduce_data/ThePowerSum.php';
 
 class GetIntroduceDataFactory
 {
@@ -29,6 +31,10 @@ class GetIntroduceDataFactory
                 return new SearchUsingDictionary();
             case 'search_missing_number' : 
                 return new SearchMissingNumber();
+            case 'minimum_absolute_diff' :
+                return new MinimumAbsoluteDiff();
+            case 'the_power_sum' :
+                return new ThePowerSum();
             default:
                 return null;
         }
