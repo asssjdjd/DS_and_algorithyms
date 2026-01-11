@@ -3,6 +3,8 @@ import {validateBigSorting} from "./impl/ValidateBigSorting.js"
 import {validateCountingSort} from "./impl/ValidateCountingSort.js"
 import { validateInsertionSort1 } from "./impl/ValidateInsertionSort1.js";
 import { validateInsertionSort2 } from "./impl/ValidateInsertionSort2.js";
+import { validateQuickSort1 } from "./impl/ValidateQuickSort1.js";
+import { validateQuickSort2 } from "./impl/ValidateQuickSort2.js";
 
 
 // validate input dữ liệu và trả về các trường
@@ -16,6 +18,7 @@ export async function validate(data) {
 
         const isAllNumeric = /^\d+$/.test(line.trim()); // kiểm tra có toàn số không
         const hasAlpha = /[a-zA-Z]/.test(line); // có chữ thường không 
+
         // const hasSpecialChar = /[^a-zA-Z0-9\s]/.test(line); 
         const hasSpecialChar = /[^a-zA-Z0-9\s\-]/.test(line); // có ký tự đặc biệt hay không.
         const countNumbers = tokens.length; // Đếm số lượng số trong 1 dòng
@@ -54,6 +57,10 @@ export async function validateDetail(algorithm,data) {
         validate = await validateInsertionSort1(data);
     }else if(algorithm === AlgorithmId.INSERTION_SORT_2) {
         validate = await validateInsertionSort2(data);
+    }else if(algorithm === AlgorithmId.QUICK_SORT_1) {
+        validate = await validateQuickSort1(data);
+    }else if(algorithm === AlgorithmId.QUICK_SORT_2) {
+        validate = await validateQuickSort2(data);
     }
     return validate;
 }

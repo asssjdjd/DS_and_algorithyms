@@ -1,20 +1,24 @@
 <?php
-
-$explant_data = [];
-
-function storeArray($n, $arr) {
-   global $explant_data;
-   array_push($explant_data, $arr);
-}
-
-function quickSort2($arr)
+function storeArrayQuickSort2($arr, &$explaint) {
+       
+        if (!empty($arr)) {
+            $explaint[] = implode(" ", $arr);
+        }
+    }
+function quickSort2($arr,&$explaint)
 {
+    
+    
+
     if(count($arr) <= 1) return $arr;
+
     $pivot = $arr[0];
     $left = [];
     $right = [];
     $equal = [];
+
     $length = count($arr);
+
     for ($i = 0; $i < $length; $i++) {
         if ($arr[$i] > $pivot) {
             array_push($right, $arr[$i]);
@@ -25,25 +29,25 @@ function quickSort2($arr)
         }
     }
 
-    $sortedLeft = quickSort($left);
-    $sortedRight = quickSort($right);
+    $sortedLeft = quickSort2($left, $explaint);
+    $sortedRight = quickSort2($right, $explaint);
 
-    $result = array_merge($sortedLeft, [$pivot], $sortedRight);
+    $result = array_merge($sortedLeft, $equal, $sortedRight);
 
-    $n = count($result);
-    storeArray($n,$result);
+    storeArrayQuickSort2($result,$explaint);
     return $result;
 }
 
+function quickSort_2 ($arr, $explaint) {
 
-// function test() {
-//     $a = [5,8,1,3,7,9,2];
-//     quickSort($a);
+    if (empty($arr)) {
+        return [[], []];
+    }
+    
+    $res = "Danh sách của mảng sau khi thực hiện thuật toán QuickSort \n";
+    $explaint[] = $res;
+    storeArrayQuickSort2($arr,$explaint);
 
-//     global $explant_data;
-//     for($i = 0; $i < count($explant_data); $i++) {
-//         var_dump($explant_data[$i]);
-//     }
-// }
-
-// test();
+    $arr = quickSort2($arr,$explaint);
+    return [$arr,$explaint];
+}
