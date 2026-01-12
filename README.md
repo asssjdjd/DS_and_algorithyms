@@ -59,3 +59,5 @@ Dự án web ứng dụng mô phỏng trực quan các thuật toán phổ biế
 * web/server/service: Các Service xử lý nghiệp vụ và Factory.
 
 * web/server/middleware: Chuẩn hóa dữ liệu đầu vào/đầu ra.
+
+## 6. Chi tiết hơn về Web truy cập vào README.md ở frontend và server
