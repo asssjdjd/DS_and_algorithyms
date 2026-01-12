@@ -1,78 +1,61 @@
-# Backend Core - Algorithm Lab Server
+# Frontend Client - Algorithm Lab
 
 ## 1. Tổng quan (Overview)
-Backend này là một hệ thống API viết bằng PHP thuần (Vanilla PHP), phục vụ việc xử lý logic cho các thuật toán (Sắp xếp, Tìm kiếm, Đệ quy, Tham lam). Hệ thống nhận input từ Frontend, xử lý qua các tầng Middleware và Core Algorithm, sau đó trả về kết quả kèm lời giải thích từng bước.
+Phần Frontend của dự án là giao diện người dùng (UI) được xây dựng bằng **HTML5, CSS3 và Vanilla JavaScript (ES6 Modules)**. Nhiệm vụ chính của nó là tương tác với người dùng, xác thực dữ liệu đầu vào (Client-side Validation) một cách chặt chẽ trước khi gửi đến Server, và hiển thị kết quả trực quan.
 
-## 2. Kiến trúc Hệ thống (Architecture)
-Dự án áp dụng **Layered Architecture** (Kiến trúc phân lớp) kết hợp với **Separation of Concerns** (Tách biệt các mối quan tâm). Luồng dữ liệu không đi trực tiếp vào thuật toán mà qua các bước chuẩn hóa nghiêm ngặt.
+## 2. Kiến trúc (Architecture)
+Hệ thống Frontend không sử dụng Framework (như React/Vue) mà áp dụng kiến trúc **Modular JavaScript** để đảm bảo code trong sáng và dễ bảo trì.
 
-### Các tầng chính (Layers):
-1.  **Entry Point Layer:** Tiếp nhận request HTTP, định tuyến (Routing) cơ bản.
-    * Đại diện: `service/post/PostInputData.php`, `service/get/GetAlgorithyms.php`.
-2.  **Factory Layer:** Quyết định xem class nào sẽ chịu trách nhiệm xử lý dựa trên `id` thuật toán.
-    * Đại diện: `HandleInputAlgorithmFactory.php`.
-3.  **Service Layer:** Điều phối luồng xử lý cụ thể cho từng thuật toán (Gọi request middleware -> gọi core -> gọi response middleware).
-    * Đại diện: Các class trong `service/get/impl/process_algorithym/`.
-4.  **Middleware Layer:**
-    * **Request Middleware:** Chuyển đổi dữ liệu thô (String/JSON) thành cấu trúc dữ liệu PHP (Array, Int) để thuật toán có thể hiểu.
-    * **Response Middleware:** Chuyển đổi kết quả thuật toán và sinh ra văn bản giải thích (Explanation text) để trả về client.
-5.  **Domain / Core Layer:** Chứa logic thuật toán thuần túy (Pure Logic), không phụ thuộc vào framework hay request.
-    * Đại diện: Thư mục `algorithyms/core/`.
+### Các thành phần chính:
+1.  **View Layer:** `index.html` và `style.css`. Chịu trách nhiệm về cấu trúc DOM và giao diện.
+2.  **Controller / Facade Layer:** `FacadeAlgorithyms.js`. Đây là trung tâm điều phối, kết nối giữa View và các Service xử lý logic.
+3.  **Service Layer:** Chứa các file giao tiếp API (`fetch`) gửi/nhận dữ liệu từ Backend.
+    * Đại diện: `service/get/GetAlgorithyms.js`, `service/post/PostInputData.js`.
+4.  **Validation Layer:** Hệ thống kiểm tra dữ liệu đầu vào đa hình (Polymorphic Validation).
+    * Đại diện: `service/ValidateInputData.js` và các file `impl/*.js`.
 
-## 3. Design Patterns Sử dụng
 
-### 3.1. Factory Method Pattern
-* **Vị trí:** `service/get/factory/HandleInputAlgorithmFactory.php`.
-* **Mục đích:** Khởi tạo đối tượng xử lý thuật toán (như `HandleQuickSort1`, `HandleBigSorting`) dựa trên tham số `algorithym_id` gửi lên từ client.
-* **Lợi ích:** Giúp code ở Controller (`PostInputData.php`) gọn gàng, không cần chứa hàng loạt câu lệnh `if/else` hoặc `switch/case` để khởi tạo class. Dễ dàng mở rộng thêm thuật toán mới mà không sửa logic cũ.
 
-### 3.2. Strategy Pattern 
-* **Vị trí:** Interface `HandleInputAlgorithmDataInterface`.
-* **Mục đích:** Định nghĩa một "hợp đồng" chung cho tất cả các lớp xử lý thuật toán (`handleInputDataAlgorithm($data)`).
-* **Lợi ích:** Hệ thống đảm bảo mọi class xử lý thuật toán đều có cùng một phương thức kích hoạt, giúp Factory có thể trả về bất kỳ class nào mà không lo lỗi type.
+### 3.1. Module Pattern (ES6)
+* **Vị trí:** Toàn bộ thư mục `service/`.
+* **Mục đích:** Đóng gói code, tránh ô nhiễm biến toàn cục (Global Scope Pollution).
+* **Giải thích:** Các file sử dụng `export async function` để chỉ công khai những hàm cần thiết. Ví dụ: `PostInputData.js` chỉ export hàm `postInputData`, các biến nội bộ khác được giữ kín.
 
-### 3.3.Middleware Pattern (Simplified)
-* **Vị trí:** Các hàm trong thư mục `middleware/request` và `middleware/response`.
-* **Mục đích:** Tách việc tiền xử lý (Pre-processing) và hậu xử lý (Post-processing) ra khỏi logic chính của thuật toán.
-* **Lợi ích:** Nếu muốn thay đổi cách parse input từ dấu cách sang dấu phẩy, chỉ cần sửa file Request Middleware mà không đụng vào Core thuật toán.
+### 3.2. Strategy Pattern (Simplified)
+* **Vị trí:** `service/ValidateInputData.js` (Hàm `validateDetail`).
+* **Mục đích:** Chọn thuật toán validate phù hợp ngay tại thời điểm chạy (Runtime).
+* **Giải thích:** Dựa vào `algorithm_id` người dùng chọn, hàm `validateDetail` sẽ chuyển hướng xử lý sang các file validate cụ thể (ví dụ: `validateBigSorting` hoặc `validateQuickSort1`). Điều này giúp tách biệt logic kiểm tra của từng thuật toán.
 
-## 4. Luồng xử lý dữ liệu chi tiết (Data Flow)
+## 4. Luồng xử lý dữ liệu (Data Flow)
 
-Ví dụ với thuật toán **QuickSort1**:
+**Bước 1: Khởi tạo (Initialization)**
+* Khi tải trang, `FacadeAlgorithyms.js` gọi `loadAlgorithmMenu` từ API.
+* Dữ liệu trả về được dùng để render các thẻ `<option>` trong Select Box.
 
-1.  **Receive Request:**
-    * Client gửi POST đến `service/post/PostInputData.php` với payload: `{ "algorithym_id": "quick_sort1", "data": ... }`.
-2.  **Factory Resolution:**
-    * `PostInputData.php` gọi `HandleInputAlgorithmFactory::create('quick_sort1')`.
-    * Factory trả về instance của class `HandleQuickSort1`.
-3.  **Execution (Service Layer):**
-    * Hàm `handleInputDataAlgorithm($data)` của `HandleQuickSort1` được kích hoạt.
-4.  **Step 1: Request Processing:**
-    * Gọi `handleQuickSort1DataRequest($data)` từ Middleware.
-    * Input chuỗi `"4 5 3"` được `explode` thành mảng `[4, 5, 3]`.
-5.  **Step 2: Core Algorithm:**
-    * Gọi hàm `quickSort1($arr)` từ Core.
-    * Logic sắp xếp chạy và trả về mảng đã sắp xếp `[3, 4, 5]`.
-6.  **Step 3: Response Processing:**
-    * Gọi `handleInputQuickSort1Response($sorted)` từ Middleware.
-    * Hàm này đóng gói mảng kết quả và chèn thêm văn bản giải thích (Text Explanation) về Pivot và Partition.
-7.  **Return Response:**
-    * Service trả về Array kết quả cuối cùng.
-    * `PostInputData.php` encode thành JSON và `echo` về Client.
+**Bước 2: Người dùng chọn thuật toán (Selection)**
+* Sự kiện `change` trên Select Box kích hoạt `postIntroduce`.
+* Frontend lấy thông tin hướng dẫn (Introduction) và hiển thị vào khung `guide-box`.
+
+**Bước 3: Người dùng bấm "RUN TEST" (Execution)**
+1.  **Lấy input:** Facade lấy chuỗi raw từ `textarea`.
+2.  ** (Pre-validation):** `validate(raw)` kiểm tra lỗi chung (ký tự lạ, format dòng).
+3.  **Validate chi tiết:** `validateDetail` gọi hàm validate riêng (ví dụ: `validateInsertionSort2`) để kiểm tra logic nghiệp vụ (ví dụ: số lượng phần tử phải khớp với khai báo dòng 1).
+4.  **Gửi Request:** Nếu dữ liệu hợp lệ, gọi `postInputData` gửi payload sang Server.
+5.  **Hiển thị:** Nhận JSON phản hồi, tách `data` (kết quả) và `explaint` (giải thích) để render ra màn hình console giả lập.
 
 ## 5. Cấu trúc thư mục (Folder Structure)
 
 ```text
-web/server/
-├── algorithyms/         # Core Logic (Logic thuần tuý)
-│   └── core/            # Chứa các file thuật toán (Sort, Search, Greedy...)
-├── middleware/          # Xử lý trung gian
-│   ├── request/         # Chuẩn hóa dữ liệu đầu vào (Input -> PHP Array)
-│   └── response/        # Chuẩn hóa dữ liệu đầu ra (PHP Array + Explain Text)
-├── service/             # Tầng dịch vụ
-│   ├── get/
-│   │   ├── factory/     # Các Factory class để khởi tạo đối tượng
-│   │   ├── impl/        # Implementation của các interface (Logic điều phối)
-│   │   └── interface/   # Các Interface định nghĩa method chung
-│   └── post/            # Các file nhận Request (Entry Point API)
-└── utils/               # Các hàm tiện ích, Enum
+web/frontend/
+├── index.html               # Giao diện chính
+├── style.css                # Style giao diện (Dark theme)
+└── service/                 # Logic xử lý chính
+    ├── AlgorithmEnums.js    # Định nghĩa hằng số (Tên thuật toán)
+    ├── FacadeAlgorithyms.js # Controller chính điều phối UI và Logic
+    ├── ValidateInputData.js # Bộ định tuyến validate
+    ├── get/                 # Các API GET (Lấy menu)
+    ├── post/                # Các API POST (Gửi input, Lấy intro)
+    └── impl/                # Các hàm validate chi tiết cho từng thuật toán
+        ├── ValidateBigSorting.js
+        ├── ValidateQuickSort1.js
+        └── ...
