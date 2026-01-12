@@ -28,7 +28,7 @@ Dự án web ứng dụng mô phỏng trực quan các thuật toán phổ biế
 ### Các bước thực hiện
 1. Clone dự án:
    ```bash
-   git clone [https://github.com/username/project-name.git](https://github.com/username/project-name.git)
+   git clone [https://github.com/asssjdjd/DS_and_algorithyms.gitt](https://github.com/asssjdjd/DS_and_algorithyms.git)
 
 2. Chuyển vào thư mục web
     ```bash
