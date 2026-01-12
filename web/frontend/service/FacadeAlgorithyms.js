@@ -4,11 +4,14 @@ import { postIntroduce } from "./post/PostAlgorithym.js";
 import { validate,validateDetail} from './ValidateInputData.js';
 
 
-const BASE_URL = "http://localhost:8000/server";
+const BASE_URL = "/web/server";
+// const BASE_URL = "http://localhost:8000/server"; 
+
 // Nhận dữ liệu và hiển thị lên giao diện cho người dùng (Main Events)
 let currentAlgorithmId = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
+    
     // Khởi tạo dữ liệu
      const groupSelect = document.getElementById("group_select");
      const algorithymSelect = document.getElementById("algo_select");
