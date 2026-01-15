@@ -9,7 +9,7 @@ export async function postInputData(BASE_URL,algo_id,data) {
     };
 
     try {
-        const POST_INPUT_DATA_URL = "/service/post/PostInputData.php";
+        const POST_INPUT_DATA_URL = "/Controller/Post/PostInputData.php";
         // gửi đến server để thực hiện
         const response = await fetch(BASE_URL + POST_INPUT_DATA_URL, {
             method : "POST",

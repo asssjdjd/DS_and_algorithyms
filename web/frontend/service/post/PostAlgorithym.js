@@ -4,7 +4,7 @@ export async function postIntroduce(BASE_URL,algoId) {
         id : algoId,
     }
     try {
-        const POST_ALGORITHYM_URL = "/service/post/PostAlgorithym.php";
+        const POST_ALGORITHYM_URL = "/Controller/Post/PostAlgorithym.php";
         const response = await fetch(BASE_URL + POST_ALGORITHYM_URL, {
             method : "POST",
             headers: {'Content-Type': 'application/json'},
