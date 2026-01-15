@@ -1,1 +1,6 @@
-/web/vendor
+# Ẩn các thư viện
+web/vendor
+
+# Ẩn thư mục test
+learn/
+

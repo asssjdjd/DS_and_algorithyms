@@ -13,7 +13,8 @@ class SortAlgorithmTest extends TestCase {
 
         $actual = SortAlgorithm::bigSorting($unsorted);
         
-        $this->assertEquals($expected, $actual, "Mảng các số lớn không được sắp xếp đúng thứ tự");
+        $this->assertEquals($expected, $actual,
+         "Mảng các số lớn không được sắp xếp đúng thứ tự");
     }
     // --- CountingSort ---
     public function testCountingSort() {
