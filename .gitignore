@@ -4,3 +4,4 @@ web/vendor
 # Ẩn thư mục test
 learn/
 
+web/.phpunit.result.cache
