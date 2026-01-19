@@ -8,6 +8,7 @@
 
 * Tiếp theo đó nhấn "Composer-Setup.exe" theo hình bên dưới
 
+---
 ![alt text](image-1.png)
 
 * Tiếp theo đó máy tính sẽ tải về tệp composer. Kích hoạt tệp đó thêm vào **variable environment** (biến môi trường).
@@ -42,9 +43,10 @@
     * Phiên bản của các thư viện đó.
     * Cấu hình autoload 
     * Ví dụ :
-    ---
-    ![alt text](image-6.png)
-    
+
+ ---
+![alt text](image-6.png)
+
     *  Giải thích : trong phần **autoload** phần **psr-4** là một chuẩn trong php giúp ánh xạ thư mục. ví dụ ở đây là **App\\** là namespace : sẽ được ánh xạ tương ứng với thư mục **"server"** trong thư mục thật.
  2. **Composer.lock**
     * Ghi lại chính xác phiên bản của từng thư viện tại thời điểm chạy lệnh 
@@ -174,7 +176,8 @@ Tìm hiểu về các khái niệm Stub,Mock.
 * Bước 3 : Assert(Khẳng định) : so sánh kết quả với output mong đợi.
 
 Ví dụ : 
----
+
+----
 ![alt text](image-7.png)
 
 * Đây là kiểu test đơn giản nhất. Kiểm tra nội bộ trong hàm không liên quan đến bên nào khác. Nên không cần dùng các kỹ thuật như là Mock/Stub. Kiểu test này gọi là **Pure Function**.
@@ -204,14 +207,17 @@ Bước 1 : cd vào thư mục web
 Bước 2 : chạy các lệnh sau 
 
 ***php vendor/bin/phpunit tests/SortAlgorithmTest.php***
+
 ---
 ![alt text](image-8.png)
 
 ***php vendor/bin/phpunit tests/SearchAlgorithmTest.php***
+
 ---
 ![alt text](image-9.png)
 
 ***php vendor/bin/phpunit tests/GreedyAlgorithmTest.php***
+
 ---
 ![alt text](image-10.png)
 
