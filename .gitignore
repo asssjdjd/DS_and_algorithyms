@@ -2,6 +2,8 @@
 web/vendor
 
 # Ẩn thư mục test
-learn/
+web/tests/LearnUnitTest/
+
+web/server/LearnUnitTest/
 
 web/.phpunit.result.cache
