@@ -19,16 +19,23 @@
   + extension = fileinfo
   + extension = mbstring
   + extension = openssl
-  + ![alt text](image-2.png)
+----
+![alt text](image-2.png)
+
   +  config dir nếu vẫn không nhận 
+---
 ![alt text](image-3.png)
 
 *  Kiếm tra :
+----
 ![alt text](image-4.png)
 
 ### Các thành phần của Composer :
 
-* Thành phần : ![alt text](image-5.png)
+* Thành phần : 
+
+---
+![alt text](image-5.png)
 
  1. **Composer.json**
     * Khai báo các thư viện được sử dụng 
@@ -165,6 +172,7 @@ Tìm hiểu về các khái niệm Stub,Mock.
 * Bước 3 : Assert(Khẳng định) : so sánh kết quả với output mong đợi.
 
 Ví dụ : 
+---
 ![alt text](image-7.png)
 
 * Đây là kiểu test đơn giản nhất. Kiểm tra nội bộ trong hàm không liên quan đến bên nào khác. Nên không cần dùng các kỹ thuật như là Mock/Stub. Kiểu test này gọi là **Pure Function**.
