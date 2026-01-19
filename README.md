@@ -29,7 +29,8 @@ Dự án web ứng dụng mô phỏng trực quan các thuật toán phổ biế
 1. Clone dự án:
    ```bash
    git clone [https://github.com/asssjdjd/DS_and_algorithyms.gitt](https://github.com/asssjdjd/DS_and_algorithyms.git)
-
+   ```
+   
 2. Chuyển vào thư mục web
     ```bash
     cd web
