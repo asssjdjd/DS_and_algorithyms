@@ -1,11 +1,14 @@
+import "../style.css";
+
 import { loadAlgorithmMenu } from "./get/GetAlgorithyms.js"
 import { postInputData } from "./post/PostInputData.js";
 import { postIntroduce } from "./post/PostAlgorithym.js";
 import { validate,validateDetail} from './ValidateInputData.js';
 
 
-// const BASE_URL = "/web/server";
-const BASE_URL = "http://localhost:8000/server"; 
+// Tự động xác định BASE_URL (dev vs production)
+const BASE_URL = process.env.BASE_URL;
+
 
 // Nhận dữ liệu và hiển thị lên giao diện cho người dùng (Main Events)
 let currentAlgorithmId = null;
@@ -42,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Khi người dùng lựa chọn thuật toán cụ thể ví dụ BigSorting
     algorithymSelect.addEventListener('change', async (event) => {
         currentAlgorithmId = event.target.value;
-        // gửi thông tin thuật toán đã chọn để nhận introduce
+
         const dataIntroduce = await postIntroduce(BASE_URL,currentAlgorithmId);
         console.log(dataIntroduce);
         renderintroduce(dataIntroduce);

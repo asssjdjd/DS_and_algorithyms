@@ -4,6 +4,15 @@ web/vendor
 # Ẩn thư mục test
 web/tests/LearnUnitTest/
 
+# Ẩn thư mục đang học test
 web/server/LearnUnitTest/
 
+# Ẩn thư mục cache
 web/.phpunit.result.cache
+
+# Ẩn nodemodule
+web/frontend/node_modules
+
+web/frontend/dist
+
+web/frontend/env

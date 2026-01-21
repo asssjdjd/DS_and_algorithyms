@@ -40,14 +40,9 @@ Dự án web ứng dụng mô phỏng trực quan các thuật toán phổ biế
     php -S localhost:8000
     ```
 
-3. Vào trong file FancadAlogrithm ở trong thư mục web/frontend/server
-
-* Bỏ comment dòng :  const BASE_URL = "http://localhost:8000/server"; 
-* Comment lại dòng : // const BASE_URL = "/web/server";
-
 ![alt text](image.png)
 
-4. Truy cập trình duyệt : 
+3. Truy cập trình duyệt : 
 * Truy cập trình duyệt: Mở http://localhost:8000/web/frontend/index.html
 
 

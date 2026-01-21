@@ -9,7 +9,7 @@
 * Tiếp theo đó nhấn "Composer-Setup.exe" theo hình bên dưới
 
 ---
-![alt text](image-1.png)
+![alt text](/image/image-1.png)
 
 * Tiếp theo đó máy tính sẽ tải về tệp composer. Kích hoạt tệp đó thêm vào **variable environment** (biến môi trường).
 
@@ -21,22 +21,22 @@
   + extension = mbstring
   + extension = openssl
 ----
-![alt text](image-2.png)
+![alt text](/image/image-2.png)
 
   +  config dir nếu vẫn không nhận 
 ---
-![alt text](image-3.png)
+![alt text](/image/image-3.png)
 
 *  Kiếm tra :
 ----
-![alt text](image-4.png)
+![alt text](/image/image-4.png)
 
 ### Các thành phần của Composer :
 
 * Thành phần : 
 
 ---
-![alt text](image-5.png)
+![alt text](/image/image-5.png)
 
  1. **Composer.json**
     * Khai báo các thư viện được sử dụng 
@@ -45,7 +45,7 @@
     * Ví dụ :
 
  ---
-![alt text](image-6.png)
+![alt text](/image/image-6.png)
 
     *  Giải thích : trong phần **autoload** phần **psr-4** là một chuẩn trong php giúp ánh xạ thư mục. ví dụ ở đây là **App\\** là namespace : sẽ được ánh xạ tương ứng với thư mục **"server"** trong thư mục thật.
  2. **Composer.lock**
@@ -178,7 +178,7 @@ Tìm hiểu về các khái niệm Stub,Mock.
 Ví dụ : 
 
 ----
-![alt text](image-7.png)
+![alt text](/image/image-7.png)
 
 * Đây là kiểu test đơn giản nhất. Kiểm tra nội bộ trong hàm không liên quan đến bên nào khác. Nên không cần dùng các kỹ thuật như là Mock/Stub. Kiểu test này gọi là **Pure Function**.
 
@@ -209,15 +209,15 @@ Bước 2 : chạy các lệnh sau
 ***php vendor/bin/phpunit tests/SortAlgorithmTest.php***
 
 ---
-![alt text](image-8.png)
+![alt text](/image/image-8.png)
 
 ***php vendor/bin/phpunit tests/SearchAlgorithmTest.php***
 
 ---
-![alt text](image-9.png)
+![alt text](/image/image-9.png)
 
 ***php vendor/bin/phpunit tests/GreedyAlgorithmTest.php***
 
 ---
-![alt text](image-10.png)
+![alt text](/image/image-10.png)
 
