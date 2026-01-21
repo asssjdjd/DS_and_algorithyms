@@ -97,3 +97,14 @@ Giúp code Javascript hiện đại chạy được trên mọi trình duyệt.
 
 ---
 
+### Cấu hình
+
+1. **Cấu hình thư mục**
+
+---
+![alt text](image.png)
+
+2. **Cấu hình file package.json**
+
+--- 
+![alt text](image-1.png)
