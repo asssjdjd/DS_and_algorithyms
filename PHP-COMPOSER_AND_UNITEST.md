@@ -113,10 +113,11 @@ extension_dir = "C:\php\php-8.2.29-nts-Win32-vs16-x64\ext"
         "monolog/monolog": "^3.10"
     }
 }
-
 ```
+---
+ Giải thích : trong phần **autoload** phần **psr-4** là một chuẩn trong php giúp ánh xạ thư mục. ví dụ ở đây là **App\\** là namespace : sẽ được ánh xạ tương ứng với thư mục **"server"** trong thư mục thật.
 
-    *  Giải thích : trong phần **autoload** phần **psr-4** là một chuẩn trong php giúp ánh xạ thư mục. ví dụ ở đây là **App\\** là namespace : sẽ được ánh xạ tương ứng với thư mục **"server"** trong thư mục thật.
+
  2. **Composer.lock**
     * Ghi lại chính xác phiên bản của từng thư viện tại thời điểm chạy lệnh 
     * Đảm bảo khi người khác sử dụng có thể hoạt động đúng(Tránh lỗi phiên bản do thư viện gây ra).
