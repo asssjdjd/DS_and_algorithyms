@@ -4,28 +4,68 @@
 
 ### Cài đặt Composer.
 
-* truy cập vào đường link : **[download]** *https://getcomposer.org/download/*
+1. truy cập vào đường link : **[download]** *https://getcomposer.org/download/*
 
-* Tiếp theo đó nhấn "Composer-Setup.exe" theo hình bên dưới
+2. Nhấn  "Composer-Setup.exe" theo hình bên dưới để tải composer về.
 
 ---
 ![alt text](/image/image-1.png)
 
-* Tiếp theo đó máy tính sẽ tải về tệp composer. Kích hoạt tệp đó thêm vào **variable environment** (biến môi trường).
+3.  Máy tính sẽ tải về tệp composer. Kích hoạt tệp đó thêm vào **variable environment** (biến môi trường).
 
-* Tiếp theo Composer bắt chọn phiên bản php để dùng. Chọn phiên bản php mà đã setup từ trước ví dụ PHP-8.2.
+4. Trong phần setting Composer bắt chọn phiên bản php để dùng. Chọn phiên bản php mà đã setup từ trước ví dụ PHP-8.2.
 
-* Sau đó Composer yêu cầu một số extension ở php.ini phải được bật ví dụ : 
-  +  extension = curl
-  + extension = fileinfo
-  + extension = mbstring
-  + extension = openssl
-----
-![alt text](/image/image-2.png)
+*  Composer yêu cầu một số extension ở php.ini phải được bật ví dụ : 
+
+ ```notepad
+  extension=curl
+;extension=ffi
+;extension=ftp
+extension=fileinfo
+;extension=gd
+;extension=gettext
+;extension=gmp
+;extension=intl
+;extension=imap
+extension=mbstring
+;extension=exif      ; Must be after mbstring as it depends on it
+;extension=mysqli
+;extension=oci8_12c  ; Use with Oracle Database 12c Instant Client
+;extension=oci8_19  ; Use with Oracle Database 19 Instant Client
+;extension=odbc
+extension=openssl
+;extension=pdo_firebird
+extension=pdo_mysql
+;extension=pdo_oci
+;extension=pdo_odbc
+;extension=pdo_pgsql
+;extension=pdo_sqlite
+;extension=pgsql
+;extension=shmop
+
+; The MIBS data available in the PHP distribution must be installed.
+; See https://www.php.net/manual/en/snmp.installation.php
+;extension=snmp
+
+;extension=soap
+;extension=sockets
+;extension=sodium
+;extension=sqlite3
+;extension=tidy
+;extension=xsl
+extension=zip
+ ```
 
   +  config dir nếu vẫn không nhận 
----
-![alt text](/image/image-3.png)
+
+```notepad
+; Directory in which the loadable extensions (modules) reside.
+; https://php.net/extension-dir
+;extension_dir = "./"
+extension_dir = "C:\php\php-8.2.29-nts-Win32-vs16-x64\ext"
+; On windows:
+;extension_dir = "ext"
+```
 
 *  Kiếm tra :
 ----
@@ -34,7 +74,6 @@
 ### Các thành phần của Composer :
 
 * Thành phần : 
-
 ---
 ![alt text](/image/image-5.png)
 
@@ -44,8 +83,38 @@
     * Cấu hình autoload 
     * Ví dụ :
 
- ---
-![alt text](/image/image-6.png)
+
+```json
+{
+    "name": "long/web",
+    "description": "Dự án web trình bày giải thuật",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "server/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\": "server/",
+            "Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "long",
+            "email": "phamthanhlong725@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    },
+    "require": {
+        "monolog/monolog": "^3.10"
+    }
+}
+
+```
 
     *  Giải thích : trong phần **autoload** phần **psr-4** là một chuẩn trong php giúp ánh xạ thư mục. ví dụ ở đây là **App\\** là namespace : sẽ được ánh xạ tương ứng với thư mục **"server"** trong thư mục thật.
  2. **Composer.lock**
@@ -177,8 +246,94 @@ Tìm hiểu về các khái niệm Stub,Mock.
 
 Ví dụ : 
 
-----
-![alt text](/image/image-7.png)
+```php
+<?php
+namespace Tests;
+use App\Application\Core\Sort\SortAlgorithm;
+use PHPUnit\Framework\TestCase;
+
+class SortAlgorithmTest extends TestCase {
+    /** 
+     * BigSorting : Test trường hợp mảng lộn xộn. có phần tử có số dài.
+    */
+    public function testBigSortingAlgorithm() {
+        $unsorted = ["6", "31415926535897932384626433832795", "1", "3", "10", "3", "5"];
+        $expected = ["1", "3", "3", "5", "6", "10", "31415926535897932384626433832795"];
+
+        $actual = SortAlgorithm::bigSorting($unsorted);
+        
+        $this->assertEquals($expected, $actual,
+         "Mảng các số lớn không được sắp xếp đúng thứ tự");
+    }
+
+    // --- CountingSort ---
+    public function testCountingSort() {
+        // Input: mảng số nguyên dương
+        $input = [1, 4, 1, 2, 7, 5, 2];
+        $expectedArr = [1, 1, 2, 2, 4, 5, 7];
+
+        // Biến explain để hứng kết quả giải thích
+        $explain = []; 
+        
+        // Gọi hàm
+        [$resultArr, $resultExplain] = SortAlgorithm::countingSort($input, $explain);
+
+        // Assert
+        $this->assertEquals($expectedArr, $resultArr, "CountingSort sắp xếp sai");
+        $this->assertNotEmpty($resultExplain, "CountingSort phải trả về giải thích (bảng tần suất)");
+    }
+
+    // --- InsertionSort1 (Test logic chèn phần tử cuối) ---
+    public function testInsertionSort1() {
+        // Mảng gần được sắp xếp, chỉ có số cuối sai vị trí
+        $input = [1, 2, 4, 5, 3]; 
+        $n = count($input);
+        $explain = [];
+
+        // Lưu ý: InsertionSort1 trong code của bạn trả về mảng đã sửa
+        [$resultArr, $resultExplain] = SortAlgorithm::insertionSort1($n, $input, $explain);
+
+        $expected = [1, 2, 3, 4, 5];
+        $this->assertEquals($expected, $resultArr);
+        $this->assertGreaterThan(0, count($resultExplain));
+    }
+
+    // --- InsertionSort2 (Full Sort) ---
+    public function testInsertionSort2() {
+        $input = [3, 4, 7, 5, 6, 2, 1];
+        $n = count($input);
+        $explain = [];
+
+        [$resultArr, $resultExplain] = SortAlgorithm::insertionSort2($n, $input, $explain);
+
+        $expected = [1, 2, 3, 4, 5, 6, 7];
+        $this->assertEquals($expected, $resultArr, "InsertionSort2 sắp xếp sai");
+    }
+
+    // --- QuickSort1 (Partition - Chỉ chia mảng, không sort full) ---
+    public function testQuickSort1() {
+        $input = [4, 5, 3, 7, 2];
+        
+        $result = SortAlgorithm::quickSort1($input);
+
+        // Kiểm tra xem Pivot (4) có nằm giữa nhóm nhỏ hơn và nhóm lớn hơn không
+        $this->assertEquals(4, $result[2]); // Vị trí pivot
+        $this->assertTrue(in_array($result[0], [3, 2]));
+        $this->assertTrue(in_array($result[4], [5, 7]));
+    }
+
+    // --- QuickSort2 (Full Sort Recursive) ---
+    public function testQuickSort2() {
+        $input = [5, 8, 1, 3, 7, 9, 2];
+        $explain = [];
+
+        [$resultArr, $resultExplain] = SortAlgorithm::quickSort_2($input, $explain);
+
+        $expected = [1, 2, 3, 5, 7, 8, 9];
+        $this->assertEquals($expected, $resultArr, "QuickSort2 sắp xếp sai");
+    }
+}
+```
 
 * Đây là kiểu test đơn giản nhất. Kiểm tra nội bộ trong hàm không liên quan đến bên nào khác. Nên không cần dùng các kỹ thuật như là Mock/Stub. Kiểu test này gọi là **Pure Function**.
 

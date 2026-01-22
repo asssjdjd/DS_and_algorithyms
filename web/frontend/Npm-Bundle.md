@@ -106,5 +106,255 @@ Giúp code Javascript hiện đại chạy được trên mọi trình duyệt.
 
 2. **Cấu hình file package.json**
 
---- 
-![alt text](image-1.png)
+```json
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "Frontend - Algorithm Lab",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack serve",
+    "build": "cross-env NODE_ENV=production webpack",
+    "watch": "cross-env NODE_ENV=development webpack --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.28.6",
+    "@babel/preset-env": "^7.28.6",
+    "babel-loader": "^10.0.0",
+    "cross-env": "^10.1.0",
+    "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^7.0.4",
+    "dotenv-webpack": "^8.1.1",
+    "html-webpack-plugin": "^5.6.0",
+    "mini-css-extract-plugin": "^2.10.0",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.90.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
+
+```
+
+***Giải thích***
+
++ **npm run dev** : ứng với lệnh ***cross-env NODE_ENV=development webpack serve*** : chạy với môi trường development và chạy lệnh webpack server giúp giữ lại source maps giúp debug dễ dàng hơn. serve sẽ chạy ứng dụng trên RAM, hỗ trợ Hot Module Replacement (HMR).
+
++ **npm run build** : ứng với lệnh ***cross-env NODE_ENV=production webpack*** : chạy ứng dụng với môi trường production.Webpack sẽ kích hoạt các optimization: nén JS, nén CSS (nhờ css-minimizer).
+
++ **npm run watch** : ứng với lệnh ***cross-env NODE_ENV=development webpack --watch*** : chạy môi trường development.Theo dõi thay đổi file và build lại, nhưng không tạo server. Thường dùng khi bạn tích hợp với một backend server khác (như PHP, Python) và chỉ cần Webpack build ra file tĩnh.
+
+
+
+3. **Cấu hình bundle : Sử dụng webpack** 
+
+```javascript
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+
+const isDev = process.env.NODE_ENV === 'development';
+
+module.exports = {
+  
+  mode: isDev ? 'development' : 'production',  
+  devtool: isDev ? 'source-map' : false,
+
+  entry: './service/FacadeAlgorithyms.js',
+
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: isDev ? 'js/bundle.js' : 'js/[name].[contenthash].js',
+    clean: true, 
+    assetModuleFilename: 'assets/[name].[hash][ext]',
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: [
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+        ],
+      },
+      
+
+      {
+        test: /\.m?js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+      
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+    ],
+  },
+
+  // 6. Plugins: Các công cụ hỗ trợ build
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      filename: 'index.html',
+      inject: 'body', 
+    }),
+  
+    !isDev && new MiniCssExtractPlugin({
+      filename: 'css/[name].[contenthash].css',
+    }),
+    
+    new Dotenv({
+      path: isDev ? './env/.env.development' : './env/.env.production', // Chọn file dựa trên mode
+      safe: false, 
+      systemvars: true, 
+    }),
+  ].filter(Boolean), 
+
+  optimization: {
+    minimize: !isDev, 
+    minimizer: [
+      '...', 
+      new CssMinimizerPlugin(), 
+    ],
+  },
+
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    compress: true,
+    port: 3000,
+    hot: true,
+    open: true,
+    proxy: {
+      '/server': {
+        target: 'http://localhost:8000',
+        pathRewrite: { '^': '' },
+        changeOrigin: true,
+      },
+    },
+  },
+};
+```
+
+***Giải thích về file webpack.config.js***
+
+```javascript
+const isDev = process.env.NODE_ENV === 'development';
+// Lưu một biến isDev đại diện cho môi trường development đang được bật.
+```
+
+```javascript
+entry: './service/FacadeAlgorithyms.js',
+// Định nghĩa đầu vào là file FacadeAlgorithums.js
+output: {
+    path: path.resolve(__dirname, 'dist'), // Định nghĩa đầu ra ở thư mục nào.
+    filename: isDev ? 'js/bundle.js' : 'js/[name].[contenthash].js/bundle.js',
+    // Kiểm tra nếu môi trường là Dev 
+
+    // Dùng file cố định bundle.js cố định tên để build nhanh.
+    // Nếu môi trường là product
+
+    // [name].[contenthash].js. contenthash là chuỗi ký tự ngẫu nhiên (VD: main.a7b8c9.js) được sinh ra dựa trên nội dung file
+    clean: true,
+    assetModuleFilename: 'assets/[name].[hash][ext]',
+},
+```
+
+```javascript
+ // giúp webpack có thể xử lý các file khác ngoài các file javascrpt và json.
+ module: {
+    rules: [
+      {
+        test: /\.css$/i, // giúp lọc các file có đuổi .css
+        use: [
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+        ], 
+        // ban đầu sử dụng css-loader để biến file css thành chuỗi văn bản mà webpack hiểu được.
+
+        // Nếu môi trường là dev dùng kiểu style-loader : giúp hỗ trợ sửa file mà không reload lại trang, nhưng file html sẽ bị phình to.
+
+        // Nếu không môi trường dev tách chuỗi css ra khỏi js và ghi vào một file riêng. Giúp trình duyệt tải song song file js và css, giúp nhẹ hơn, nhanh hơn.
+      },
+      
+      {
+        test: /\.m?js$/, // áp dụng cho file .js và .mjs
+        exclude: /node_modules/, // lệnh này giúp không dịch code trong thư mục node_modules.
+        use: {
+          loader: 'babel-loader', // sử dụng thư viện babel để thông dịch file .js
+          options: {
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+      
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i, // xử lý các file có định dạng ảnh
+        type: 'asset/resource',
+      },
+    ],
+  },
+```
+
+```javascript
+plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html', // nhận file đầu vào là index.html
+      filename: 'index.html', // tên file đầu ra ở thư mục dist
+      inject: 'body',  // vị trí chèn thẻ script
+    }),
+  
+    !isDev && new MiniCssExtractPlugin({ 
+        // Nếu không phải môi trường dev thì mới chạy plugin này.
+      filename: 'css/[name].[contenthash].css',
+    }),
+    
+    // Đọc các biến (như API_URL, FIREBASE_KEY) từ file .env và nhúng vào code thông qua process.env.TEN_BIEN
+
+    // nếu môi trường dev thì đọc trong file env.development
+
+    // nếu môi trường product thì đọc ở file env.production
+    new Dotenv({
+      path: isDev ? './env/.env.development' : './env/.env.production', // Chọn file dựa trên mode
+      safe: false, 
+      systemvars: true, 
+    }),
+  ].filter(Boolean),
+  ```
+
+
+  ```java script
+
+  devServer: { 
+    // giúp cấu hình chạy được trên cả máy tính các nhân localhost.
+    static: {
+      directory: path.join(__dirname, 'dist'), 
+    },
+    compress: true, // Server sẽ nén nhỏ các file giúp tăng tốc độ.
+    port: 3000,
+    hot: true, // giúp cập nhật trang web ngay lập tức mà không cần phải load lại trang.
+    open: true, // tự động bật trình duyệt khi chạy npm run dev.
+
+    // cấu hình nơi nhận ở server.
+    proxy: {
+      '/server': {
+        target: 'http://localhost:8000',
+        pathRewrite: { '^': '' },
+        changeOrigin: true,
+      },
+    },
+  ```

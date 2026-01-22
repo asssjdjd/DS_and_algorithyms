@@ -13,6 +13,6 @@ web/.phpunit.result.cache
 # Ẩn nodemodule
 web/frontend/node_modules
 
-web/frontend/dist
+# web/frontend/dist
 
 web/frontend/env
