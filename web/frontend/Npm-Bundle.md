@@ -264,10 +264,9 @@ output: {
     path: path.resolve(__dirname, 'dist'), // Định nghĩa đầu ra ở thư mục nào.
     filename: isDev ? 'js/bundle.js' : 'js/[name].[contenthash].js/bundle.js',
     // Kiểm tra nếu môi trường là Dev 
-
     // Dùng file cố định bundle.js cố định tên để build nhanh.
+    
     // Nếu môi trường là product
-
     // [name].[contenthash].js. contenthash là chuỗi ký tự ngẫu nhiên (VD: main.a7b8c9.js) được sinh ra dựa trên nội dung file
     clean: true,
     assetModuleFilename: 'assets/[name].[hash][ext]',
